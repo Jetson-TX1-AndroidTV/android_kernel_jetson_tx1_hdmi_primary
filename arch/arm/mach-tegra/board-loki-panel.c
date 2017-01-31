@@ -444,7 +444,7 @@ int __init loki_panel_init(int board_id)
 	find_dc_node(&dc1_node, &dc2_node);
 
 	tegra_get_board_info(&bi);
-	if ((bi.sku == BOARD_SKU_FOSTER) && (bi.board_id == BOARD_P2530)) {
+	if ((bi.sku == BOARD_SKU_0) && (bi.board_id == BOARD_P2597)) {
 		res = platform_get_resource_byname(&loki_disp2_device,
 					 IORESOURCE_IRQ, "irq");
 		res->start = INT_DISPLAY_GENERAL;
@@ -501,7 +501,7 @@ int __init loki_panel_init(int board_id)
 	loki_disp2_device.dev.parent = &phost1x->dev;
 	loki_disp2_out.hdmi_out = &loki_hdmi_out;
 
-	if ((bi.sku != BOARD_SKU_FOSTER) || (bi.board_id != BOARD_P2530)) {
+	if ((bi.sku == BOARD_SKU_0) && (bi.board_id == BOARD_P2597)) {
 		if (!of_have_populated_dt() || !dc1_node ||
 			!of_device_is_available(dc1_node)) {
 			err = platform_device_register(&loki_disp1_device);
