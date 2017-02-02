@@ -409,13 +409,13 @@
 		nvidia,common_padctl = <&xusb_pad_ctl>;
 		nvidia,portmap = <0x0108>;
 		#extcon-cells = <1>;
-		status = "disabled";
+		status = "okay";
 	};
 
 	xotg {
 		#extcon-cells = <1>;
 		nvidia,common_padctl = <&xusb_pad_ctl>;
-		status = "disabled";
+		status = "okay";
 	};
 
 	gpu-dvfs-rework {

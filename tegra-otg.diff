@@ -1,0 +1,161 @@
+Subject: [PATCH] jetson-tx1: xudc with usb2p0/ss1
+
+
+
+---
+
+ .../boot/dts/tegra210-jetson-cv-base-p2597-2180-a00.dts  | 16 ++++++++--------
+
+ arch/arm64/configs/tegra21_defconfig                     |  3 +++
+
+ 2 files changed, 11 insertions(+), 8 deletions(-)
+
+
+
+diff --git a/arch/arm64/boot/dts/tegra210-jetson-cv-base-p2597-2180-a00.dts b/arch/arm64/boot/dts/tegra210-jetson-cv-base-p2597-2180-a00.dts
+
+index 1b32f8b..84db2cd 100644
+
+--- a/arch/arm64/boot/dts/tegra210-jetson-cv-base-p2597-2180-a00.dts
+
++++ b/arch/arm64/boot/dts/tegra210-jetson-cv-base-p2597-2180-a00.dts
+
+@@ -412,18 +412,19 @@
+
+ 		nvidia,port-otg;
+
+ 		nvidia,charging-supported;
+
+ 		#extcon-cells = <1>;
+
+-		status = "okay";
+
++		status = "disabled";
+
+ 	};
+
+ 
+
+ 	otg@7d000000 {
+
+ 		#extcon-cells = <1>;
+
+-		status = "okay";
+
++		status = "disabled";
+
+ 	};
+
+ 
+
+ 	xusb_pad_ctl: padctl@0 { /* Put common control config here */
+
+-		nvidia,ss_portmap = <0x21>;
+
++		nvidia,ss_portmap = <0x7701>;
+
+ 		nvidia,lane_owner = <0xff56>; /* Use 0xF to disable lane assign */
+
+-		status = "okay";
+
++        nvidia,otg_portmap = <0x0102>;
+
++        status = "okay";
+
+ 	};
+
+ 
+
+ 	xusb@70090000 {
+
+@@ -431,22 +432,21 @@
+
+ 		/* nvidia,gpio_controls_muxed_ss_lanes; */
+
+ 		nvidia,gpio_ss1_sata = <0>;
+
+ 		nvidia,ulpicap = <0>; /* No ulpi support. can we remove */
+
+-		nvidia,portmap = <0x0e03>;
+
++		nvidia,portmap = <0x0e01>;
+
+ 		nvidia,common_padctl = <&xusb_pad_ctl>;
+
+ 		status = "okay";
+
+ 	};
+
+ 
+
+ 	xudc@700d0000 {
+
+ 		nvidia,common_padctl = <&xusb_pad_ctl>;
+
+-		nvidia,portmap = <0x0108>;
+
+ 		#extcon-cells = <1>;
+
+-		status = "disabled";
+
++		status = "okay";
+
+ 	};
+
+ 
+
+ 	xotg {
+
+ 		#extcon-cells = <1>;
+
+ 		nvidia,common_padctl = <&xusb_pad_ctl>;
+
+-		status = "disabled";
+
++		status = "okay";
+
+ 	};
+
+ 
+
+ 	gpu-dvfs-rework {
+
+diff --git a/arch/arm64/configs/tegra21_defconfig b/arch/arm64/configs/tegra21_defconfig
+
+index 6390256..300102a 100644
+
+--- a/arch/arm64/configs/tegra21_defconfig
+
++++ b/arch/arm64/configs/tegra21_defconfig
+
+@@ -458,9 +458,12 @@ CONFIG_USB_SERIAL_OPTION=y
+
+ CONFIG_USB_SERIAL_BASEBAND=m
+
+ CONFIG_USB_NV_SHIELD_LED=y
+
+ CONFIG_USB_TEGRA_OTG=y
+
++CONFIG_USB_TEGRA_XOTG=y
+
+ CONFIG_USB_GADGET=y
+
+ CONFIG_USB_GADGET_VBUS_DRAW=500
+
+ CONFIG_USB_TEGRA=y
+
++CONFIG_USB_TEGRA_XUDC=y
+
++CONFIG_USB_G_ANDROID=y
+
+ CONFIG_PLAT_FPGA_T210=y
+
+ CONFIG_USB_AUDIO=m
+
+ CONFIG_USB_ETH=m
+
+-- 
+
+2.1.4
+
+
